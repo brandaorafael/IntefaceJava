@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/IntefaceJava.iml" filepath="$PROJECT_DIR$/.idea/IntefaceJava.iml" />
       <module fileurl="file://$PROJECT_DIR$/Programa/Programa.iml" filepath="$PROJECT_DIR$/Programa/Programa.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Telas/Telas.iml" filepath="$PROJECT_DIR$/Telas/Telas.iml" />
     </modules>
   </component>
 </project>
