@@ -7,36 +7,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-
 public class Home extends JPanel implements ActionListener {
-
-    private JButton signup;
-    private JButton login;
     private JFrame frame;
-    ArrayList<User> users;
+    private JLabel l;
+    private JButton deslogar;
+    private User user;
+    private ArrayList<User> users;
 
-    public Home(JFrame frame, ArrayList<User> users){
-
+    public Home(JFrame frame, User user, ArrayList<User> users){
         this.frame = frame;
+        this.user = user;
         this.users = users;
 
-        signup = new JButton("Registrar");
-        login = new JButton("Logar");
+        Box box = Box.createVerticalBox();    // vertical box
 
-        signup.addActionListener(this);
-        login.addActionListener(this);
+        l = new JLabel(user.getUsername() + ", você está logado!");
+        deslogar = new JButton("Deslogar");
 
-        add(signup);
-        add(login);
+        deslogar.addActionListener(this);
+
+        box.add(l);
+        box.add(deslogar);
+
+        add(box);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Signup signup = new Signup(frame, users);
-        signup.setOpaque(true); //content panes must be opaque
-        frame.remove(this);
-        frame.setContentPane(signup);
-        frame.pack();
-        frame.setVisible(true);
+        if (e.getSource().equals(deslogar)) {
+            Initial initial = new Initial(frame, users);
+            initial.setOpaque(true); //content panes must be opaque
+            frame.setContentPane(initial);
+            frame.pack();
+            frame.setVisible(true);
+        }
     }
 }

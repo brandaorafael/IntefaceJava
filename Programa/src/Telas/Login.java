@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class Signup extends JPanel implements ActionListener {
+public class Login extends JPanel implements ActionListener {
 
     private JFrame frame;
     private JButton voltar;
@@ -15,10 +15,10 @@ public class Signup extends JPanel implements ActionListener {
     private JTextField usernameTF;
     private JLabel passwordL;
     private JPasswordField passwordTF;
-    private JButton cadastrar;
+    private JButton logar;
     ArrayList<User> users;
 
-    public Signup(JFrame frame, ArrayList<User> users){
+    public Login(JFrame frame, ArrayList<User> users){
         this.frame = frame;
         this.users = users;
 
@@ -29,40 +29,38 @@ public class Signup extends JPanel implements ActionListener {
         usernameTF = new JTextField();
         passwordL = new JLabel("Senha");
         passwordTF = new JPasswordField();
-        cadastrar = new JButton("Cadastrar");
+        logar = new JButton("Logar");
 
         voltar.addActionListener(this);
-        cadastrar.addActionListener(this);
+        logar.addActionListener(this);
 
         box.add(voltar);
         box.add(usernameL);
         box.add(usernameTF);
         box.add(passwordL);
         box.add(passwordTF);
-        box.add(cadastrar);
+        box.add(logar);
 
         add(box);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean aux = false;
-
         if (e.getSource().equals(voltar)) {
-            aux = true;
-        } else if(e.getSource().equals(cadastrar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
-            users.add(new User(usernameTF.getText(), new String(passwordTF.getPassword())));
-            System.out.println(users);
-            frame.remove(this);
-            aux = true;
-        }
-
-        if(aux){
             Initial initial = new Initial(frame, users);
             initial.setOpaque(true); //content panes must be opaque
             frame.setContentPane(initial);
             frame.pack();
             frame.setVisible(true);
+        } else if(e.getSource().equals(logar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
+            User user = User.login(users,usernameTF.getText(), new String(passwordTF.getPassword()));
+            if(user != null){
+                Home home = new Home(frame, user, users);
+                home.setOpaque(true); //content panes must be opaque
+                frame.setContentPane(home);
+                frame.pack();
+                frame.setVisible(true);
+            }
         }
     }
 }

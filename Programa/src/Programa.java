@@ -1,5 +1,5 @@
 import Estrutura.User;
-import Telas.Home;
+import Telas.Initial;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class Programa {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             //Create and set up the content pane.
-            Home home = new Home(frame, users);
-            home.setOpaque(true); //content panes must be opaque
-            frame.setContentPane(home);
+            Initial initial = new Initial(frame, users);
+            initial.setOpaque(true); //content panes must be opaque
+            frame.setContentPane(initial);
 
             //Display the window.
             frame.pack();
