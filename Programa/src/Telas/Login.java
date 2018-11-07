@@ -5,6 +5,7 @@ import Estrutura.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Login extends JPanel implements ActionListener {
@@ -55,7 +56,12 @@ public class Login extends JPanel implements ActionListener {
         } else if(e.getSource().equals(logar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
             User user = User.login(users,usernameTF.getText(), new String(passwordTF.getPassword()));
             if(user != null){
-                Home home = new Home(frame, user, users);
+                Home home = null;
+                try {
+                    home = new Home(frame, user, users);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
                 home.setOpaque(true); //content panes must be opaque
                 frame.setContentPane(home);
                 frame.pack();
