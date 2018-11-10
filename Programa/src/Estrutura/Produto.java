@@ -4,10 +4,12 @@ public class Produto {
 
     private String nome;
     private Double valor;
+    private String image;
 
-    public Produto(String nome, Double valor) {
+    public Produto(String nome, Double valor, String image) {
         this.nome = nome;
         this.valor = valor;
+        this.image = image;
     }
 
     public String getNome() {
@@ -16,6 +18,10 @@ public class Produto {
 
     public Double getValor() {
         return valor;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     @Override

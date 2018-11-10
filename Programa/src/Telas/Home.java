@@ -51,7 +51,7 @@ public class Home extends JPanel implements ActionListener {
         for(String l:lines){
             List<String> words = Arrays.asList(l.split(","));
 
-            produtos.add(new Produto(words.get(0),Double.parseDouble(words.get(1))));
+            produtos.add(new Produto(words.get(0), Double.parseDouble(words.get(1)), words.get(2)));
         }
 
         comboBox = new JComboBox<>();

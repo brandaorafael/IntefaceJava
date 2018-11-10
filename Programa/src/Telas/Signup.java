@@ -5,6 +5,9 @@ import Estrutura.User;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Signup extends JPanel implements ActionListener {
@@ -46,23 +49,32 @@ public class Signup extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        boolean aux = false;
-
         if (e.getSource().equals(voltar)) {
-            aux = true;
-        } else if(e.getSource().equals(cadastrar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
-            users.add(new User(usernameTF.getText(), new String(passwordTF.getPassword())));
-            System.out.println(users);
-            frame.remove(this);
-            aux = true;
+            goToInitial();
+        } else if(e.getSource().equals(cadastrar)){
+            if (!usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
+                try {
+                    String fileName = "/Users/rafaelbrandao/Documents/Projetos/IntefaceJava/Programa/src/usuarios.txt";
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
+                    writer.append("\n"+usernameTF.getText()+","+new String(passwordTF.getPassword()));
+                    writer.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                users.add(new User(usernameTF.getText(), new String(passwordTF.getPassword())));
+                frame.remove(this);
+                goToInitial();
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor coloque um usuário e uma senha!");
+            }
         }
+    }
 
-        if(aux){
-            Initial initial = new Initial(frame, users);
-            initial.setOpaque(true); //content panes must be opaque
-            frame.setContentPane(initial);
-            frame.pack();
-            frame.setVisible(true);
-        }
+    public void goToInitial(){
+        Initial initial = new Initial(frame, users);
+        initial.setOpaque(true); //content panes must be opaque
+        frame.setContentPane(initial);
+        frame.pack();
+        frame.setVisible(true);
     }
 }

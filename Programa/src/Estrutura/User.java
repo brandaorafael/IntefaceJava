@@ -6,10 +6,13 @@ public class User {
 
     private String username;
     private String password;
+    private ArrayList<Carrinho> carrinho;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+
+        carrinho = new ArrayList<>();
     }
     public String getUsername() {
         return username;
@@ -26,6 +29,10 @@ public class User {
             }
         }
         return null;
+    }
+
+    public void addItemCarrinho(Produto produto, int quantidade){
+        this.carrinho.add(new Carrinho(produto, quantidade));
     }
 
 }
