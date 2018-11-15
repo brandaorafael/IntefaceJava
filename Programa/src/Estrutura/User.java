@@ -1,18 +1,22 @@
 package Estrutura;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class User {
 
     private String username;
     private String password;
-    private ArrayList<Carrinho> carrinho;
+    private Map<String, Integer> carrinho;
+//    private ArrayList<Carrinho> carrinho;
+
 
     public User(String username, String password) {
+        carrinho = new HashMap<>();
+
         this.username = username;
         this.password = password;
-
-        carrinho = new ArrayList<>();
     }
     public String getUsername() {
         return username;
@@ -32,7 +36,10 @@ public class User {
     }
 
     public void addItemCarrinho(Produto produto, int quantidade){
-        this.carrinho.add(new Carrinho(produto, quantidade));
+        if(carrinho.containsKey(produto.getNome())){
+            quantidade += carrinho.get(produto.getNome());
+        }
+            carrinho.put(produto.getNome(), quantidade);
     }
 
 }

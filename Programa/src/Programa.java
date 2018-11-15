@@ -4,15 +4,13 @@ import Telas.Initial;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Programa {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-
             ArrayList<User> users = new ArrayList<>();
 
             String filename = "/Users/rafaelbrandao/Documents/Projetos/IntefaceJava/Programa/src/usuarios.txt";
