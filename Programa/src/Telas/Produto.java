@@ -14,23 +14,17 @@ import java.util.ArrayList;
 import static javax.swing.SwingConstants.LEADING;
 
 public class Produto extends JPanel implements ActionListener {
-    private JFrame frame;
     private JButton voltar;
     private JLabel nome;
     private JLabel preco;
     private JButton adicionar;
-    private ArrayList<User> users;
     private Estrutura.Produto produto;
-    private User user;
     private JRadioButton qnt1;
     private JRadioButton qnt2;
     ButtonGroup group;
 
-    public Produto(JFrame frame, User user, ArrayList<User> users, Estrutura.Produto produto){
-        this.frame = frame;
-        this.users = users;
+    public Produto(Estrutura.Produto produto){
         this.produto = produto;
-        this.user = user;
 
         Box verticalBox = Box.createVerticalBox();    // vertical box
 
@@ -119,33 +113,17 @@ public class Produto extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(voltar)) {
-            try {
-                Home home = new Home(frame, user, users);
-                home.setOpaque(true); //content panes must be opaque
-                frame.setContentPane(home);
-                frame.pack();
-                frame.setVisible(true);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+            Coordinator.goToHomeScreen();
         } else if (e.getSource().equals(adicionar)) {
-            try {
-                int quantidade = 0;
-                if(qnt1.isSelected())
-                    quantidade = 1;
-                else if (qnt2.isSelected()){
-                    quantidade = 2;
-                }
-                user.addItemCarrinho(produto, quantidade);
-
-                Home home = new Home(frame, user, users);
-                home.setOpaque(true); //content panes must be opaque
-                frame.setContentPane(home);
-                frame.pack();
-                frame.setVisible(true);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            int quantidade = 0;
+            if(qnt1.isSelected())
+                quantidade = 1;
+            else if (qnt2.isSelected()){
+                quantidade = 2;
             }
+            Coordinator.getLoggedUser().addItemCarrinho(produto, quantidade);
+
+            Coordinator.goToHomeScreen();
         }
     }
 }

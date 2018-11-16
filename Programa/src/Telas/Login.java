@@ -1,12 +1,8 @@
 package Telas;
-
-import Estrutura.User;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Login extends JPanel implements ActionListener {
 
@@ -17,11 +13,9 @@ public class Login extends JPanel implements ActionListener {
     private JLabel passwordL;
     private JPasswordField passwordTF;
     private JButton logar;
-    ArrayList<User> users;
 
-    public Login(JFrame frame, ArrayList<User> users){
+    public Login(JFrame frame){
         this.frame = frame;
-        this.users = users;
 
         Box box = Box.createVerticalBox();    // vertical box
 
@@ -32,7 +26,7 @@ public class Login extends JPanel implements ActionListener {
         passwordTF = new JPasswordField();
         logar = new JButton("Logar");
 
-        voltar.addActionListener(this);
+        voltar.addActionListener(e -> Coordinator.goToInitialScreen());
         logar.addActionListener(this);
 
         box.add(voltar);
@@ -47,25 +41,11 @@ public class Login extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(voltar)) {
-            Initial initial = new Initial(frame, users);
-            initial.setOpaque(true); //content panes must be opaque
-            frame.setContentPane(initial);
-            frame.pack();
-            frame.setVisible(true);
-        } else if(e.getSource().equals(logar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
-            User user = User.login(users,usernameTF.getText(), new String(passwordTF.getPassword()));
-            if(user != null){
-                Home home = null;
-                try {
-                    home = new Home(frame, user, users);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                home.setOpaque(true); //content panes must be opaque
-                frame.setContentPane(home);
-                frame.pack();
-                frame.setVisible(true);
+        if(e.getSource().equals(logar) && !usernameTF.getText().isEmpty() && passwordTF.getPassword().length > 0){
+            try {
+                Coordinator.login(usernameTF.getText(), new String(passwordTF.getPassword()));
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         }
     }

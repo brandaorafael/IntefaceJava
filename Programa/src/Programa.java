@@ -1,5 +1,7 @@
 import Estrutura.User;
+import Telas.Coordinator;
 import Telas.Initial;
+import Telas.Login;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -39,20 +41,8 @@ public class Programa {
                 e.printStackTrace();
             }
 
+            Coordinator.start(users);
 
-            //Create and set up the window.
-            JFrame frame = new JFrame("Lojinha");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            //Create and set up the content pane.
-            Initial initial = new Initial(frame, users);
-            initial.setOpaque(true); //content panes must be opaque
-            frame.setContentPane(initial);
-
-            //Display the window.
-            frame.pack();
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
     }
 }
