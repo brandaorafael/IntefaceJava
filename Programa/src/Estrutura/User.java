@@ -23,6 +23,14 @@ public class User {
         return password;
     }
 
+    public Map<String, Integer> getCarrinho() {
+        return carrinho;
+    }
+
+    public void limpaCarrinho(){
+        carrinho = new HashMap<>();
+    }
+
     public void addItemCarrinho(Produto produto, int quantidade){
         if(carrinho.containsKey(produto.getNome())){
             quantidade += carrinho.get(produto.getNome());

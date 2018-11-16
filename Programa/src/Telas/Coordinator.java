@@ -4,13 +4,20 @@ import Estrutura.Produto;
 import Estrutura.User;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
-public class Coordinator {
+public class Coordinator implements ActionListener {
     private static Coordinator instance;
+
+    JMenuItem ver;
+    JMenuItem limpar;
+    JMenuItem logout;
 
     private JFrame frame;
     private static ArrayList<User> users;
@@ -22,12 +29,35 @@ public class Coordinator {
         frame = new JFrame("Lojinha");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        //Create and set up the content pane.
+        JMenuBar menuBar = new JMenuBar();
+        frame.setJMenuBar(menuBar);
+
+        JMenu carrinhoMenu = new JMenu("Carrinho");
+
+        ver = new JMenuItem("Ver");
+        ver.addActionListener(this);
+
+        limpar = new JMenuItem("Limpar");
+        limpar.addActionListener(this);
+
+        carrinhoMenu.add(ver);
+        carrinhoMenu.addSeparator();
+        carrinhoMenu.add(limpar);
+
+        JMenu perfilMenu = new JMenu("Perfil");
+
+        logout = new JMenuItem("Logout");
+        logout.addActionListener(e -> Coordinator.logout());
+
+        perfilMenu.add(logout);
+
+        menuBar.add(carrinhoMenu);
+        menuBar.add(perfilMenu);
+
         Initial initial = new Initial();
         initial.setOpaque(true);
         frame.setContentPane(initial);
 
-        frame.pack();
         frame.setVisible(true);
         frame.setSize( 300, 300 );
     }
@@ -35,14 +65,6 @@ public class Coordinator {
     public static void start(ArrayList<User> users){
         instance = new Coordinator(users);
     }
-
-//    public static Coordinator getInstance(){
-//        if(instance == null){
-//            instance = new Coordinator(new ArrayList<>());
-//        }
-//        return instance;
-//    }
-
 
     public static User getLoggedUser() {
         return instance.loggedUser;
@@ -127,5 +149,26 @@ public class Coordinator {
         frame.setContentPane(panel);
         frame.invalidate();
         frame.validate();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(Coordinator.loggedUser != null){
+            if(e.getSource().equals(ver)) {
+                String prods = "";
+                for (Map.Entry<String, Integer> c : loggedUser.getCarrinho().entrySet())
+                {
+                    prods += (c.getKey() + ": " + c.getValue() + "\n");
+                }
+                if(prods.equals("")){
+                    prods = "Você ainda não possui produtos no carrinho!";
+                }
+                JOptionPane.showMessageDialog(null, prods, "Carrinho", JOptionPane.INFORMATION_MESSAGE);
+            } else if (e.getSource().equals(limpar)){
+                loggedUser.limpaCarrinho();
+            }
+        } else {
+            Coordinator.goToLoginScren();
+        }
     }
 }
