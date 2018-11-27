@@ -5,6 +5,7 @@ import Telas.Login;
 
 import javax.swing.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +16,7 @@ public class Programa {
         javax.swing.SwingUtilities.invokeLater(() -> {
             ArrayList<User> users = new ArrayList<>();
 
-            String filename = "/Users/rafaelbrandao/Documents/Projetos/IntefaceJava/Programa/src/usuarios.txt";
+            String filename = new File("").getAbsolutePath() + "/Programa/src/usuarios.txt";
 
             try {
                 FileReader fileReader = new FileReader(filename);

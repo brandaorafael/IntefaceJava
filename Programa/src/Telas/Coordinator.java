@@ -78,7 +78,7 @@ public class Coordinator implements ActionListener {
         for(User user : users){
             if(user.getUsername().equals(name) && user.getPassword().equals(password)){
                 loggedUser = user;
-                String filename = "/Users/rafaelbrandao/Documents/Projetos/IntefaceJava/Programa/src/produtos.txt";
+                String filename = new File("").getAbsolutePath() + "/Programa/src/produtos.txt";
 
                 FileReader fileReader = new FileReader(filename);
 
@@ -112,7 +112,7 @@ public class Coordinator implements ActionListener {
     }
 
     public static void signup(String name, String password) throws IOException {
-        String fileName = "/Users/rafaelbrandao/Documents/Projetos/IntefaceJava/Programa/src/usuarios.txt";
+        String fileName = new File("").getAbsolutePath() +  "/Programa/src/usuarios.txt";
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true));
         writer.append("\n"+name+","+password);
         writer.close();
