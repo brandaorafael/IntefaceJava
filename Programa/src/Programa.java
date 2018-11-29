@@ -1,9 +1,5 @@
 import Estrutura.User;
 import Telas.Coordinator;
-import Telas.Initial;
-import Telas.Login;
-
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
